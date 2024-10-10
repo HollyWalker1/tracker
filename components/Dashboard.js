@@ -1,11 +1,24 @@
 import React from 'react'
 import { Fugaz_One} from "next/font/google";
 import Calendar from './Calendar';
+import { useAuth } from '@/context/AuthContext';
+import { useEffect } from 'react/cjs/react.production.min';
 
 const fugaz = Fugaz_One({ subsets: ["latin"], weight:['400']})
 
 
 export default function Dashboard() {
+  const {currentUser, userDataObj} = useAuth()
+  const [data, setData] = useState({})
+
+  function countValues() {
+
+  }
+  
+  function handleSetSpending(spending) {
+
+  }
+
   const statuses = {
     days: 14,
     time_remaining: '13:14:26',
@@ -19,6 +32,14 @@ export default function Dashboard() {
     'Below limit': '🟢',
     'Way below limit': '🔵',
   }
+
+  useEffect(() => {
+    if (!currentUser || !userDataObj) {
+      return
+    }
+    setData(userDataObj)
+
+  }, [currentUser, userDataObj])
 
   return (
     <div className="flex flex-col flex-1 gap-4 sm:gap-8 md:gap-12 ">
@@ -45,7 +66,7 @@ export default function Dashboard() {
           )
         })}
       </div>
-      <Calendar/>
+      <Calendar data={data} handleSetSpending={handleSetSpending}/>
     </div>
   )
 }

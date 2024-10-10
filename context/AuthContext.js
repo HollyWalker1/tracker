@@ -3,7 +3,7 @@
 import { auth, db } from '@/firebase'
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 import { doc } from 'firebase/firestore'
-import React, {useConext, useState, useEffect} from 'react'
+import React, {useContext, useState, useEffect} from 'react'
 
 const AuthContext = React.createContext()
 

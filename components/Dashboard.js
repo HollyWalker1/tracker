@@ -1,8 +1,9 @@
-import React from 'react'
+'use client'
+
+import React, { useState, useEffect} from 'react'
 import { Fugaz_One} from "next/font/google";
 import Calendar from './Calendar';
 import { useAuth } from '@/context/AuthContext';
-import { useEffect } from 'react/cjs/react.production.min';
 
 const fugaz = Fugaz_One({ subsets: ["latin"], weight:['400']})
 

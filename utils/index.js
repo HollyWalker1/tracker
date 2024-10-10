@@ -17,3 +17,8 @@ export const gradients = {
     yellow: ['#fff8db', '#fff0b8', '#ffe495', '#ffd97b', '#ffc84f', '#dba339', '#b78127', '#936118', '#7a4b10',],
     pink: ['#ffd8f2', '#ffb1ea', '#ff8aea', '#ff6df1', '#ff3dfe', '#cd2ddb', '#9d1fb7', '#731493', '#540b7a',],
 }
+
+export const demo = {
+    "15": 2, "16": 4, "17": 1, "18": 3, "19": 5,
+    "20": 2, "21": 4, "22": 1, "23": 3, "24": 5,
+  }

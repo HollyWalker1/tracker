@@ -18,7 +18,12 @@ export default function Dashboard() {
     
   }
   
-  async function handleSetSpending(spending, day, month, year) {
+  async function handleSetSpending(spending) {
+    const now = new Date()
+  
+    const day = now.getDate()
+    const month = now.getMonth()
+    const year = now.getFullYear()
     try {
       const newData = {...userDataObj}
       if (!newData?.[year]) {
@@ -86,7 +91,10 @@ export default function Dashboard() {
       <div className="grid grid-cols-5 md:grid-cols-5 gap-4">
         {Object.keys(spendings).map((spending, spendingIndex) => {
           return(
-            <button className={'p-4 rounded-2xl items-center purpleShadow duration-200 bg-indigo-50 hover:bg-indigo-100 text-center ' + (spendingIndex == 4 ? 'cols-span-2 ' : ' ')} key={spendingIndex}>
+            <button onCLick={() => {
+              const currentSpendingValue = spendingIndex + 1
+              handleSetSpending(currentSpendingValue)
+            }}className={'p-4 rounded-2xl items-center purpleShadow duration-200 bg-indigo-50 hover:bg-indigo-100 text-center ' + (spendingIndex == 4 ? 'cols-span-2 ' : ' ')} key={spendingIndex}>
               <p className='text-indigo-500 '>{spending}</p>
               <p className={'text-1xl md:text-3xl ' + fugaz.className}>{spendings[spending]}</p>
             </button>

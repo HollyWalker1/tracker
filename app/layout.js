@@ -18,9 +18,6 @@ export default function RootLayout({ children }) {
       <Link href='/'>
         <h1 className={'text-base sm:text-lg textGradient ' + fugaz.className}>TrackR</h1>
       </Link>
-      <div className="flex items-center justify-between ">
-        PLACEHOLDER
-      </div>
     </header>
   )
   const footer = (

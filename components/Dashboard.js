@@ -15,14 +15,25 @@ const fugaz = Fugaz_One({ subsets: ["latin"], weight:['400']})
 export default function Dashboard() {
   const {currentUser, userDataObj, setUserDataObj, loading} = useAuth()
   const [data, setData] = useState({})
+  const now = new Date()
 
   function countValues() {
-    
+    let total_number_of_days = 0
+    let sum_spending = 0
+    for (let year in data) {
+      for (let month in data[year]){
+        for (let day in data[year][month]) {
+          let days_spending = data[year][month][day]
+          total_number_of_days++
+          sum_spending += days_spending
+        }
+      }
+    }
+    return {num_days : total_number_of_days, average_spending_rating: sum_spending / total_number_of_days}
   }
   
   async function handleSetSpending(spending) {
-    const now = new Date()
-  
+
     const day = now.getDate()
     const month = now.getMonth()
     const year = now.getFullYear()
@@ -54,17 +65,16 @@ export default function Dashboard() {
   }
 
   const statuses = {
-    days: 14,
-    time_remaining: '13:14:26',
-    date: (new Date()).toDateString()
+    ...countValues(),
+    time_remaining: `${23 - now.getHours()}h ${60 - now.getMinutes()}m`
   }
 
   const spendings = {
-    'Way above limit': '🔴',
-    'Above limit': '🟠',
-    'On limit': '🟡',
-    'Below limit': '🟢',
     'Way below limit': '🔵',
+    'Below limit': '🟢',
+    'On limit': '🟡',
+    'Above limit': '🟠',
+    'Way above limit': '🔴',
   }
 
   useEffect(() => {
@@ -113,7 +123,7 @@ export default function Dashboard() {
           )
         })}
       </div>
-      <Calendar data={data} handleSetSpending={handleSetSpending}/>
+      <Calendar completeData={data} handleSetSpending={handleSetSpending}/>
     </div>
   )
 }

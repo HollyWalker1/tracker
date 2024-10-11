@@ -4,20 +4,46 @@ import React, { useState, useEffect} from 'react'
 import { Fugaz_One} from "next/font/google";
 import Calendar from './Calendar';
 import { useAuth } from '@/context/AuthContext';
+import { doc, setDoc } from 'firebase/firestore';
+import { db } from '@/firebase';
 
 const fugaz = Fugaz_One({ subsets: ["latin"], weight:['400']})
 
 
 export default function Dashboard() {
-  const {currentUser, userDataObj} = useAuth()
+  const {currentUser, userDataObj, setUserDataObj} = useAuth()
   const [data, setData] = useState({})
 
   function countValues() {
-
+    
   }
   
-  function handleSetSpending(spending) {
+  async function handleSetSpending(spending, day, month, year) {
+    try {
+      const newData = {...userDataObj}
+      if (!newData?.[year]) {
+        newData[year] = {}
+      }
+      if (!newData?.[year]?.[month]) {
+        newData[year][month] = {}
+      }
 
+      newData[year][month][day] = spending
+
+      setData(newData)
+      setUserDataObj(newData)
+
+      const docRef = doc(db, 'users', currentUser.uid)
+      const res = await setDoc(docRef, {
+        [year]: {
+          [month]: {
+            [day]: spending
+          }
+        }
+      }, { merge: true })
+    } catch (error) {
+      console.log('Failed to set data: ', error.message)
+    }
   }
 
   const statuses = {

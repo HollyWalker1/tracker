@@ -103,7 +103,7 @@ export default function Dashboard() {
       <div className="grid grid-cols-5 md:grid-cols-5 gap-4">
         {Object.keys(spendings).map((spending, spendingIndex) => {
           return(
-            <button onCLick={() => {
+            <button onClick={() => {
               const currentSpendingValue = spendingIndex + 1
               handleSetSpending(currentSpendingValue)
             }}className={'p-4 rounded-2xl items-center purpleShadow duration-200 bg-indigo-50 hover:bg-indigo-100 text-center ' + (spendingIndex == 4 ? 'cols-span-2 ' : ' ')} key={spendingIndex}>
